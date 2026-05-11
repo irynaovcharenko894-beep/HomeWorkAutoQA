@@ -21,9 +21,27 @@ dependencies {
 
     //implementation 'org.slf4j:slf4j-api:2.0.12'
     implementation 'ch.qos.logback:logback-classic:1.5.32'
+
 }
 
 test {
     useTestNG()
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', project.property('browser')
+    }
 }
 
+def registerTask(String taskName, String suitePath) {
+    tasks.register(taskName, Test) {
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+        useTestNG() {
+            suites suitePath
+        }
+        if (project.hasProperty('browser')) {
+            systemProperty 'browser', project.property('browser')
+        }
+    }
+}
+
+registerTask('smoky', 'src/test/resources/smoke.xml')

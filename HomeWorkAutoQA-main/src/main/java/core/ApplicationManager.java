@@ -4,6 +4,7 @@ import fw.UserHelper;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -12,8 +13,8 @@ import java.time.Duration;
 
 public class ApplicationManager {
 
-    String browser;
-     WebDriver driver;
+    private final String browser;
+    WebDriver driver;
 
     UserHelper userHelper;
 
@@ -35,10 +36,16 @@ public class ApplicationManager {
         } else if (browser.equalsIgnoreCase("safari")) {
             WebDriverManager.safaridriver().setup();
             driver = new SafariDriver();
+        } else if (browser.equalsIgnoreCase("edge")) {
+            WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver(
+
+            );
+
         } else {
             driver = new ChromeDriver();
         }
-
+        System.out.println(browser);
 
         driver.get("https://demowebshop.tricentis.com/");
         driver.manage().window().maximize();
@@ -48,6 +55,7 @@ public class ApplicationManager {
 
 
     protected void stop() {
+        System.out.println(driver);
         if (driver != null) {
             driver.quit();
         }

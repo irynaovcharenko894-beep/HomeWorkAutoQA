@@ -29,6 +29,7 @@ public class BaseHelper {
     }
 
     public void click(By locator) {
+        System.out.println(locator);
         driver.findElement(locator).click();
     }
 

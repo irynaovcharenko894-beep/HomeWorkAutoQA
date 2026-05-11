@@ -1,4 +1,4 @@
-package tests;
+package demoqa;
 
 import core.TestBase;
 import model.User;
@@ -11,13 +11,13 @@ public class CartTests extends TestBase {
 
     @BeforeMethod
     public void precondition() {
-        app.getUserHelper().login( new User().setEmail("ovcharenko894@gmail.com").setPassword("Test12345!"));
+        app.getUserHelper().login( new User().setEmail("ovcharenko894@gmail.com").setPassword("Aa12345!"));
     }
 
     @Test
-    public void addItemToCartTest() {
+    public void addItemToCartPositiveTest() {
         app.getUserHelper().click(By.xpath("(//input[@value='Add to cart'])[2]"));
-        app.getUserHelper().click(By.className("ico-cart"));
+        app.getUserHelper().click(By.xpath("(//span[@class='cart-label'])[1]"));
         Assert.assertTrue(app.getUserHelper().elementIsPresent(By.linkText("14.1-inch Laptop")), "Товар не найден в корзине!");
     }
 }

@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager
+    protected static ApplicationManager app = new ApplicationManager
             (System.getProperty("browser",Browser.CHROME.browserName()));
     public static final Logger LOGGER = (Logger) LoggerFactory.getLogger(TestBase.class);
 
@@ -30,6 +30,7 @@ public class TestBase {
         } else {
             LOGGER.error("Test is FAILED: [" + method.getName() + "], Screenshot: [" + app.getUserHelper().takeScreenshot() + "]");
         }
+        System.out.println("app.stop");
         app.stop();
     }
 
